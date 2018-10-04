@@ -1,6 +1,9 @@
+const uuidv1 = require('uuid/v1');
+
 const contents = [];
 
 const create = (content) =>{
+    content._id = uuidv1();
     contents.push(content);
     return content;
 }
