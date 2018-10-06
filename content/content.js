@@ -1,6 +1,6 @@
 const uuidv1 = require('uuid/v1');
 
-const contents = [];
+let contents = [];
 
 const create = (content) =>{
     content._id = uuidv1();
@@ -8,9 +8,9 @@ const create = (content) =>{
     return content;
 }
 
-const read = (id, desde = process.env.DESDE, limite = process.env.LIMITE) => {
-    if(id !== undefined){
-        return alimentos.slice(desde, desde + limite);
+const read = (id, desde, limite) => {
+    if(!id){
+        return contents.slice(desde, desde + limite);
     }
     else{
         let content = contents.find(x => x._id === id);

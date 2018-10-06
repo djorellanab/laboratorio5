@@ -5,7 +5,7 @@ const  {create, read, update, _delete} = require('../../../content/content.js');
 // ============================
 // Mostrar todos los alimentos
 // ============================
-app.get('api/v1/alimento/:id?',  (req, res, next) => {
+app.get('/api/v1/alimento/:id?',  (req, res, next) => {
     let desde = req.query.desde || process.env.DESDE ;
     desde = Number(desde);
     let  limite = req.query.limite || process.env.LIMITE;
@@ -38,8 +38,9 @@ app.get('api/v1/alimento/:id?',  (req, res, next) => {
 // ============================
 // Crear una nuevo alimento
 // ============================
-app.post('api/v1/alimento', (req, res, next) => {
+app.post('/api/v1/alimento', (req, res, next) => {
     let body = req.body;
+    body.fecha = Date.now();
     let alimento = create(body);
     return res.status(201).json({
         ok: true,
@@ -50,9 +51,10 @@ app.post('api/v1/alimento', (req, res, next) => {
 // ============================
 // Actualizar un alimento
 // ============================
-app.put('api/v1/alimento/:id', (req, res, next) => {
+app.put('/api/v1/alimento/:id', (req, res, next) => {
     let id = req.params.id;
     let body = req.body;
+    body._id = id;
     let alimento = update(body);
     if(alimento !== null){
         return res.status(204).json({
@@ -71,7 +73,7 @@ app.put('api/v1/alimento/:id', (req, res, next) => {
 // ============================
 // Eliminar una alimento
 // ============================
-app.delete('api/v1/alimento/:id', [verificarToken, verificarAdmin_Role], (req, res) => {
+app.delete('/api/v1/alimento/:id', (req, res) => {
     let id =  req.params.id;
     let alimento = _delete(id);
     if (alimento !== null){

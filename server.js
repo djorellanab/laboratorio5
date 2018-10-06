@@ -1,3 +1,5 @@
+require('./config/globals');
+
 const  {argv, getComando} = require('./config/yargs');
 const express = require('express');
 const app = express();
